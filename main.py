@@ -104,7 +104,7 @@ def agregar_articulo():
 	
 	while opc.lower() != "si" or opc.lower() != "s" or opc.lower() != "no" or opc.lower() != "n":
 		if opc.lower() == "si" or opc.lower() == "s":
-			cursor.execute("INSERT INTO productos(nombre,presentacion,preciocompra,precioventa,marca,proveedor,unidades) VALUES(?,?,?,?,?,?,?)",(nombre.lower(),presentacion,preciocompra,precioventa,marca,proveedor,unidades))
+			cursor.execute("INSERT INTO productos(nombre,presentacion,preciocompra,precioventa,marca,proveedor,unidades) VALUES(?,?,?,?,?,?,?)",(nombre.lower(),presentacion,preciocompra,precioventa,marca.lower(),proveedor.lower(),unidades))
 			conexion.commit()
 			print("------------------------------------------------------------------------------------------")
 			print("\tOperacion realizada con exito.")
@@ -261,6 +261,7 @@ def modificar_articulo():
 def eliminar_articulo():
 	global whereiam
 	whereiam = "eliminar_articulo"
+	pavaiable = False
 	os.system("cls")
 	header()
 	print(' ¡Si ingreso erroneamente escriba la palabra "menu" sin comillas para regresar!\n')
@@ -270,21 +271,44 @@ def eliminar_articulo():
 		menu()
 	else:
 		pass
-	delete= "DELETE FROM productos WHERE id= %s" %id
-	cursor.execute(delete)
-	conexion.commit()
 	
-	optionmenu()
+	cursor.execute("SELECT * FROM productos WHERE id=?",(id,))
+	found=cursor.fetchone()
+	if len(found) != 0:
+
+		print("\n El codigo ingresado pertenece al producto\n")
+		print("\t          Codigo:",found[0])
+		print("\t          Nombre:",found[1])
+		print("\tMarca/Fabricante:",found[5])
+		print("\t    Presentacion:",found[2])
+		print("\tStock disponible:",found[7])
+		opc = input("\n ¿Esta seguro desea eliminar el producto? si o no: ")
+
+		if opc.lower() == "si" or opc.lower() == "s":
+			cursor.execute("DELETE FROM productos WHERE id= ?",(id,))
+			conexion.commit()
+			optionmenu()
+
+		elif opc.lower() == "no" or opc.lower() == "n":
+			print("\nSe ha cancelado la operacion\n")
+			optionmenu()
+
+	elif len(found) == 0:
+		print("\nEl codigo ingresado no existe")
+		optionmenu()
+
+	else:
+		print("\n¡Error! Ponganse en contacto con el administrador del sistema")
 
 def menu():
 	os.system("cls")
 	header()
 	print(" ")
-	print("\t[1] Agregar articulo")
-	print("\t[2] Buscar articulo")
-	print("\t[3] Listar articulos")
-	print("\t[4] Editar articulo")
-	print("\t[5] Eliminar articulo")
+	print("\t[1] Agregar productos")
+	print("\t[2] Buscar productos")
+	print("\t[3] Todos los productos")
+	print("\t[4] Editar producto")
+	print("\t[5] Eliminar producto")
 	print("\t[6] Salir")
 	
 	opc = input("\n¿Que operacion desea realizar? ")
