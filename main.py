@@ -17,9 +17,17 @@ cursor = conexion.cursor()
 whereiam = ""
 error = False
 
+def clearScreen():
+    if os.name == "nt":
+        os.system("cls")
+    elif os.name == "posix":
+        os.system("clear")
+    else:
+        print("<-No se pudo borrar la pantalla->")
+
 def header():
 	fecha = time.localtime()
-	os.system('cls')
+	clearScreen()
 	print("==========================================================================================")
 	print("      Administracion General            Fecha:",fecha.tm_mday,"-",fecha.tm_mon,"-",fecha.tm_year,"      Hora:",fecha.tm_hour,":",fecha.tm_min)
 	print("|       Autor Julian Lucero                                                              |")
@@ -71,7 +79,7 @@ def optionmenu():
 def agregar_articulo():
 	global whereiam
 	whereiam = "agregar_articulo"
-	os.system("cls")
+	clearScreen()
 	header()
 	print(' ¡Si ingreso erroneamente escriba la palabra "menu" sin comillas para regresar!\n')
 	nombre=input("\tNombre del producto (Ejemplo: Yogurt): ")
@@ -126,7 +134,7 @@ def buscar_articulos():
 	whereiam = "buscar_articulos"
 	header()
 	print(' ¡Si ingreso erroneamente escriba la palabra "menu" sin comillas para regresar!\n')
-	print("")
+	print(" Puedes buscar por nombre del producto, marca, codigo o presentacion\n")
 	search = input("\tBuscar: ")
 	if search.lower() == "menu":
 		menu()
@@ -155,7 +163,7 @@ def buscar_articulos():
 def mostrar_articulos():
 	global whereiam
 	whereiam = "mostrar_articulos"
-	os.system("cls")
+	clearScreen()
 	header()
 	show = "SELECT * FROM productos"
 	cursor.execute(show)
@@ -262,7 +270,7 @@ def eliminar_articulo():
 	global whereiam
 	whereiam = "eliminar_articulo"
 	pavaiable = False
-	os.system("cls")
+	clearScreen()
 	header()
 	print(' ¡Si ingreso erroneamente escriba la palabra "menu" sin comillas para regresar!\n')
 	print("")
@@ -301,7 +309,7 @@ def eliminar_articulo():
 		print("\n¡Error! Ponganse en contacto con el administrador del sistema")
 
 def menu():
-	os.system("cls")
+	clearScreen()
 	header()
 	print(" ")
 	print("\t[1] Agregar productos")
