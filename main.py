@@ -132,7 +132,7 @@ def buscar_articulos():
 		menu()
 	else:
 		pass
-	cursor.execute("SELECT * FROM productos WHERE nombre=? OR marca=? OR id=?", (search.lower(),search.lower(),search.lower(),))
+	cursor.execute("SELECT * FROM productos WHERE nombre=? OR marca=? OR id=? OR presentacion=?", (search.lower(),search.lower(),search.lower(),search.lower(),))
 	found = cursor.fetchall()
 	print("")
 	if len(found) == 0:
