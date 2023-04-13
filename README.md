@@ -1,13 +1,15 @@
-# administracion-general
-Proyecto en modo de practica de un sistema en el que se puedan realizar varias operaciones, por ejemplo administrar inventario, gestion de usuarios con sus respectivos permisos, mi idea es para practicar todo lo que tenga que ver con venta, productos, usuarios, uniendolo todo en este programa de ejemplo
+# Console inventory manager
 
-# Proximas funciones o actualizaciones
+> To run this project you need python 3
 
-*Agregar un menu general que contendra diferentes opciones (Acceder modo administrativo, Acceder modo usuario/cajero)
-    -El modo administrativo contendra las funciones actuales de agregar, editar, eliminar productos, sumandole futuras funciones        como Gestion de Usuarios para crear, eliminar, modificar cuentas, tambien contara con configuracion de permisos determinar que      usuario puede obtener determinado permiso, como tambien establecer grupos con permisos preestablecidos.
-    
-*Agregar funcion de logeo de usuarios, para controlar que activivdad puede realizar cada usuario dependiendo de su tipo de cuenta.
+1. Clone the repository
+2. Open your preferred terminal and go to the project folder.
+3. Run ```python main.py```
 
-*Agregar un carrito de compras que guarde tus compras que te permita eliminar o agregar productos segun gustes.
+# Features
 
-*Identificador de session para que automaticamente detecte tus cambios o tus preferencias.
+* Add new product.
+* Edit an existing product.
+* Delete an existing product.
+* Search for a specific product.
+* List all existing products.
