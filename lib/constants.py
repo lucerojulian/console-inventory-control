@@ -1,0 +1,5 @@
+ADD_PRODUCT_OPTION = "add_product"
+SEARCH_PRODUCT_OPTION = "search_product"
+LIST_ALL_PRODUCTS_OPTION = "list_all_products"
+EDIT_PRODUCT_OPTION = "edit_product"
+DELETE_PRODUCT_OPTION = "delete_product"
