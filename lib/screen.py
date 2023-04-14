@@ -18,10 +18,11 @@ def clear():
 
 def draw_header():
     date = time.localtime()
+    today = str(date.tm_mon) + "/" + str(date.tm_mday) + "/" + str(date.tm_year)
     clear()
+
     print("==========================================================================================")
-    print("            Inventory manager             Fecha:", date.tm_mday, "-",
-          date.tm_mon, "-", date.tm_year, "      Hora:", date.tm_hour, ":", date.tm_min)
+    print("            Inventory manager                                            Date: " + today)
     print("|       Developed by Julian Lucero                                                       |")
     print("==========================================================================================")
 
@@ -46,9 +47,9 @@ def draw_options_menu(go_to_main_menu):
 
     print("------------------------------------------------------------------------------------------")
     print("\n[1]", first_option_label)
-    print("[2] Menu principal")
-    print("[3] Salir del programa\n")
-    opc = input("Seleccionar opcion: ")
+    print("[2] Main menu")
+    print("[3] Stop program\n")
+    opc = input("Choose an option: ")
 
     while opc != "1" or opc != "2" or opc != "3":
         if opc == "1":
@@ -73,4 +74,4 @@ def draw_options_menu(go_to_main_menu):
             db.close()
             exit()
         else:
-            opc = input("Operacion no valida, intente denuevo: ")
+            opc = input("Invalid operation, please try again")

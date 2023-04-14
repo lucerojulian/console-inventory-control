@@ -13,40 +13,40 @@ def add_new_product(go_to_main_menu):
     screen.draw_header()
     db = Database()
 
-    print('¡Si ingreso erroneamente escriba la palabra "menu" sin comillas para regresar!\n')
-    nombre = input("\tNombre del producto (Ejemplo: Yogurt): ").lower()
+    print('Type "menu" without quotes to return to the main menu\n')
+    nombre = input("\tProduct name (Example: Tablet): ").lower()
 
     if nombre.lower() == "menu":
         go_to_main_menu()
     else:
         pass
-    presentacion = input("\tPresentacion del producto (Ejemplo: 1kg, 1.5l): ")
-    preciocompra = float(input("\tPrecio de compra (Sin IVA): "))
+
+    presentacion = input('\tProduct presentation (Example: 32", 1kg, 1.5l): ')
+    preciocompra = float(input("\tPurchase cost (Without IVA): "))
     iva = preciocompra * 0.21
     recomendable = preciocompra + (preciocompra * 20 / 100) + iva
-    print("\tPrecio de venta recomendado  $", round(recomendable))
-    precioventa = float(input("\tPrecio de venta: "))
-    marca = input("\tMarca (Ejemplo: Sancor): ").lower()
+    print("\tRecommended sale price  $", round(recomendable))
+    precioventa = float(input("\tSale price: "))
+    marca = input("\tBrand (Example: Apple, LG): ").lower()
     proveedor = input(
-        "\tProveedor (Ejemplo: Distribuidor mayorista Gral. Pico): ").lower()
-    unidades = int(input("\tCantidad de unidades que desea agregar: "))
+        "\tSupplier: ").lower()
+    unidades = int(input("\tNumber of units to add: "))
     print("")
     screen.draw_header()
     print("")
-    print("\t¿Desea agregar el siguiente producto?")
+    print("\tDo you want to add the following product")
     print("")
-    print("\tNombre del producto:", nombre.capitalize())
-    print("\t       Presentacion:", presentacion)
-    print("\t   Precio de compra:", preciocompra)
-    print("\t    Precio de venta:", precioventa)
-    print("\t Marca o Fabricante:", marca.capitalize())
-    print("\t Unidades a agregar:", unidades)
+    print("\t               Name:", nombre.capitalize())
+    print("\t       Presentation:", presentacion)
+    print("\t      Purchase cost:", preciocompra)
+    print("\t         Sale price:", precioventa)
+    print("\t              Brand:", marca.capitalize())
+    print("\t       Units to add:", unidades)
     print("")
-    opc = input(
-        'Escriba "Si" para confirmar o "No" para cancelar (Sin las comillas): ')
+    opc = input('Type "yes" to confirm or "no" to cancel ( Without quotes ): ')
 
-    while opc.lower() != "si" or opc.lower() != "s" or opc.lower() != "no" or opc.lower() != "n":
-        if opc.lower() == "si" or opc.lower() == "s":
+    while opc.lower() != "yes" or opc.lower() != "y" or opc.lower() != "no" or opc.lower() != "n":
+        if opc.lower() == "yes" or opc.lower() == "y":
             table_info = "productos(nombre,presentacion,preciocompra,precioventa,marca,proveedor,unidades)"
             db.execute(
                 "INSERT INTO " + table_info + " VALUES(?,?,?,?,?,?,?)",
@@ -55,16 +55,16 @@ def add_new_product(go_to_main_menu):
             db.commit()
             print(
                 "------------------------------------------------------------------------------------------")
-            print("\tOperacion realizada con exito.")
+            print("\t¡Product added successfully!")
             break
         elif opc.lower() == "no" or opc.lower() == "n":
             print("")
             print(
                 "------------------------------------------------------------------------------------------")
-            print("Se ha cancelado la operacion")
+            print("The operation was canceled")
             break
         else:
-            opc = input("La respuesta es incorrecta, intenta denuevo: ")
+            opc = input("The answer is invalid, try again: ")
 
     screen.draw_options_menu(go_to_main_menu)
 
@@ -75,19 +75,19 @@ def edit_product(go_to_main_menu):
     screen.draw_header()
     db = Database()
 
-    print(' ¡Si ingreso erroneamente escriba la palabra "menu" sin comillas para regresar!')
-    print("      ---------------------------------------------------------               ")
-    print('  Si no recuerda el codigo del articulo escriba "buscar" sin las comillas')
+    print('  Type "menu" without quotes to return to the main menu')
+    print("  ---------------------------------------------------------               ")
+    print('  Type "search" without quotes to search for a product')
     print("==========================================================================================")
 
     if globals.error:
-        print("\t\t\t¡ERROR! EL CODIGO INGRESADO NO EXISTE")
+        print("\t\t\t¡Error! The code entered does not exist")
     else:
         print("")
-    id = input("\tCodigo del producto a editar: ")
+    id = input("\tProduct code: ")
     if id.lower() == "menu":
         go_to_main_menu()
-    elif id.lower() == "buscar":
+    elif id.lower() == "search":
         search_product(go_to_main_menu)
     else:
         pass
@@ -98,14 +98,14 @@ def edit_product(go_to_main_menu):
 
         print("")
         print("==========================================================================================\n")
-        print("\t             Codigo:", found[0])
-        print("\t             Nombre:", found[1])
-        print("\t   Fabricante/Marca:", found[5])
-        print("\t       Presentacion:", found[2])
-        print("\t   Precio de compra:", found[3])
-        print("\t    Precio de venta:", found[4])
-        print("\t          Proveedor:", found[6])
-        print("\t   Stock disponible:", found[7])
+        print("\t               Code:", found[0])
+        print("\t               Name:", found[1])
+        print("\t              Brand:", found[5])
+        print("\t       Presentation:", found[2])
+        print("\t      Purchase cost:", found[3])
+        print("\t         Sale price:", found[4])
+        print("\t           Supplier:", found[6])
+        print("\t              Stock:", found[7])
         print("")
         print("\n==========================================================================================")
         globals.error = False
@@ -114,21 +114,22 @@ def edit_product(go_to_main_menu):
         globals.error = True
         edit_product(go_to_main_menu)
 
-    print(" Para no editar algun dato preciona ENTER y en los precios coloca un 0 (Cero)")
+    print(' To skip a field press "ENTER"')
     print("------------------------------------------------------------------------------------------")
-    newname = input("\n\tNuevo nombre: ")
+    newname = input("\n\tNew product name: ")
     if newname.lower() == "menu":
         go_to_main_menu()
-    elif newname.lower() == "buscar":
+    elif newname.lower() == "search":
         search_product(go_to_main_menu)
     else:
         pass
-    newmarca = input("\n\tNuevo/a fabricante/Marca: ")
-    newpresentacion = input("\n\tNuevo presentacion: ")
-    newpreciocompra = float(input("\n\tNuevo precio de compra: "))
-    newprecioventa = float(input("\n\tNuevo precio de venta: "))
-    newproveedor = input("\n\tNuevo proveedor: ")
-    newstock = int(input("\n\tActualizar stock disponible: "))
+
+    newmarca = input("\n\tNew brand: ")
+    newpresentacion = input("\n\tNew presentation: ")
+    newpreciocompra = float(input("\n\tNew purchase cost: "))
+    newprecioventa = float(input("\n\tNew sale price: "))
+    newproveedor = input("\n\tNew supplier: ")
+    newstock = int(input("\n\tNew stock: "))
 
     if newname != "":
         db.execute("UPDATE productos SET nombre=? WHERE id=?", newname.lower(), id)
@@ -147,15 +148,15 @@ def edit_product(go_to_main_menu):
     else:
         pass
 
-    opc = input("\n ¿Esta seguro que desea aplicar estos cambios? si o no: ")
+    opc = input('\n To confirm and apply this changes type "yes" or "no" to cancel: ')
 
-    if opc.lower() == "si" or opc.lower() == "s":
+    if opc.lower() == "yes" or opc.lower() == "y":
         db.commit()
-        print("\nSe han aplicado los cambios")
-        screen.draw_options_menu()
+        print("\n¡Changes were applied successfully!")
+        screen.draw_options_menu(go_to_main_menu)
     elif opc.lower() == "no" or opc.lower() == "n":
-        print("\n Los cambios han sido cancelados.")
-        screen.draw_options_menu()
+        print("\n Changes are canceled.")
+        screen.draw_options_menu(go_to_main_menu)
 
 
 def delete_product(go_to_main_menu):
@@ -165,9 +166,9 @@ def delete_product(go_to_main_menu):
     screen.draw_header()
     db = Database()
 
-    print(' ¡Si ingreso erroneamente escriba la palabra "menu" sin comillas para regresar!\n')
+    print('  Type "menu" without quotes to return to the main menu\n')
     print("")
-    id = input("Codigo del producto a eliminar: ")
+    id = input("Product code: ")
     if id.lower() == "menu":
         go_to_main_menu()
     else:
@@ -177,29 +178,29 @@ def delete_product(go_to_main_menu):
     found = db.fetchone()
 
     if len(found) != 0:
-        print("\n El codigo ingresado pertenece al producto\n")
-        print("\t          Codigo:", found[0])
-        print("\t          Nombre:", found[1])
-        print("\tMarca/Fabricante:", found[5])
-        print("\t    Presentacion:", found[2])
-        print("\tStock disponible:", found[7])
-        opc = input("\n ¿Esta seguro desea eliminar el producto? si o no: ")
+        print("\n Information of product you want to delete\n")
+        print("\t            Code:", found[0])
+        print("\t            Name:", found[1])
+        print("\t           Brand:", found[5])
+        print("\t    Presentation:", found[2])
+        print("\t           Stock:", found[7])
+        opc = input('\n To confirm and delete this product type "yes" or "no" to cancel: ')
 
-        if opc.lower() == "si" or opc.lower() == "s":
+        if opc.lower() == "yes" or opc.lower() == "y":
             db.execute("DELETE FROM productos WHERE id= ?", id)
             db.commit()
             screen.draw_options_menu(go_to_main_menu)
 
         elif opc.lower() == "no" or opc.lower() == "n":
-            print("\nSe ha cancelado la operacion\n")
+            print("\nThe operation was canceled\n")
             screen.draw_options_menu(go_to_main_menu)
 
     elif len(found) == 0:
-        print("\nEl codigo ingresado no existe")
+        print("\nThe code does not exist")
         screen.draw_options_menu(go_to_main_menu)
 
     else:
-        print("\n¡Error! Ponganse en contacto con el administrador del sistema")
+        print("\nAn unexpected error occurred, please contact the system administrator")
 
 
 def search_product(go_to_main_menu):
@@ -208,9 +209,9 @@ def search_product(go_to_main_menu):
     screen.draw_header()
     db = Database()
 
-    print(' ¡Si ingreso erroneamente escriba la palabra "menu" sin comillas para regresar!\n')
-    print(" Puedes buscar por nombre del producto, marca, codigo o presentacion\n")
-    search = input("\tBuscar: ").lower()
+    print(' Type "menu" without quotes to return to the main menu\n')
+    print(" You can search by name, brand, code or presentation of the product\n")
+    search = input("\tSearch: ").lower()
 
     if search == "menu":
         go_to_main_menu()
@@ -226,14 +227,14 @@ def search_product(go_to_main_menu):
     print("")
 
     if len(found) == 0:
-        print("\tNo se ha encontrado ningun resultado")
+        print("\tNo results were found")
         print("")
 
     else:
-        print("En total hay", len(found), "coincidencias")
+        print(len(found), "results found.")
         print("")
         print("------------------------------------------------------------------------------------------")
-        print("| Codigo | Nombre del producto | Fabricante/Marca | Presentacion | Stock disponible      |")
+        print("|   Code   |      Product Name      |      Brand       |    Presentation    |   Stock    |")
         print("------------------------------------------------------------------------------------------")
         for row in found:
             time.sleep(0.1)
@@ -258,7 +259,7 @@ def list_all_products(go_to_main_menu):
     results = db.fetchall()
 
     print("|        |                     |              |            |                  |          |")
-    print("| Codigo | Nombre del producto | Presentacion | Precio+IVA | Fabricante/Marca | Unidades |")
+    print("|  Code  |         Name        | Presentation | Price+IVA  |       Brand      |  Stock   |")
     print("|        |                     |              |            |                  |          |")
     print("|----------------------------------------------------------------------------------------|")
     for row in results:
@@ -269,6 +270,6 @@ def list_all_products(go_to_main_menu):
         print("|----------------------------------------------------------------------------------------|")
 
         time.sleep(0.07)
-    print("\t\t\t\t\t\tEn total hay", len(results), "productos agregados")
+    print("\t\t\t\t\t\tIn total there are", len(results), "products")
 
     screen.draw_options_menu(go_to_main_menu)

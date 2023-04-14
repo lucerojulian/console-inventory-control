@@ -17,14 +17,14 @@ def menu():
     db = Database()
 
     print(" ")
-    print("\t[1] Agregar productos")
-    print("\t[2] Buscar productos")
-    print("\t[3] Todos los productos")
-    print("\t[4] Editar producto")
-    print("\t[5] Eliminar producto")
-    print("\t[6] Salir")
+    print("\t[1] Add new products")
+    print("\t[2] Search products")
+    print("\t[3] List all products")
+    print("\t[4] Edit a product")
+    print("\t[5] Delete a product")
+    print("\t[6] Stop program")
 
-    opc = input("\n¿Que operacion desea realizar? ")
+    opc = input("\nChoose an option: ")
 
     if opc == "1":
         add_new_product(menu)
@@ -41,7 +41,7 @@ def menu():
         exit()
     else:
         menu()
-        print("\nIngreso una opcion no valida.")
+        print("\nYou chose and invalid option!")
 
 
 menu()
