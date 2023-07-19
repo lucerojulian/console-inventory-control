@@ -1,4 +1,4 @@
-# Console inventory manager
+# Terminal inventory manager
 
 *This is a very special project since it was one of the first ones I did when I started learning programming*
 <img src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png?v8"  width="10" height="10">
